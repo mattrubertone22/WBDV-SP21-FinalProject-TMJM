@@ -5,35 +5,56 @@ import Profile from './prototype/profile'
 import SignUp from './prototype/register'
 import Details from './prototype/details'
 import Search from './prototype/search'
+import NavigationBar from "./prototype/NavBar"
+
+
 function App() {
   return (
     <div className="container-fluid">
         <BrowserRouter>
-            <Route path="/" exact={true}>
+            <Route path={["/", "/home"]} exact={true}>
+            <NavigationBar></NavigationBar>
+            <div className="wbdv-page-content">
                 <Home/>
+                </div>
             </Route>
             <Route path={["/search", "/search/:title"]}
                    exact={true}>
-                <Search/>
+                   <NavigationBar></NavigationBar>
+                <div className="wbdv-page-content">
+                                <Search/>
+                                </div>
             </Route>
             <Route path="/details/:teamId" exact={true}>
-                <Details/>
+                                   <NavigationBar></NavigationBar>
+                                <div className="wbdv-page-content">
+                                                <Details/>
+                                                </div>
             </Route>
                                 <Route
                                     exact={true}
                                     path={["/login"]}>
-                                    <Login/>
+                                   <NavigationBar></NavigationBar>
+                                                                   <div className="wbdv-page-content">
+                                                                                   <Login/>
+                                                                                   </div>
                                 </Route>
 
                                 <Route
                                     exact={true}
                                     path={["/register"]}>
-                                    <SignUp/>
+                                    <NavigationBar></NavigationBar>
+                                                                    <div className="wbdv-page-content">
+                                                                                    <SignUp/>
+                                                                                    </div>
                                 </Route>
                                 <Route
                                     exact={true}
                                path={["/profile"]}>
-                                    <Profile/>
+                                   <NavigationBar></NavigationBar>
+                                                                   <div className="wbdv-page-content">
+                                                                                   <Profile/>
+                                                                                   </div>
                                 </Route>
         </BrowserRouter>
     </div>

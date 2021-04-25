@@ -8,6 +8,7 @@ import {
     Button,
     Stack,
     Text,
+    Heading,
     VStack, Select
 } from "@chakra-ui/react";
 import userService from "../services/user-service";
@@ -26,9 +27,8 @@ const Profile = () => {
     }, [statusCode])
        return(
            <div>
-               <NavBar/>
                <VStack>
-                   <Text fontSize='70px' color='darkblue' as='ariel'>Profile</Text>
+                   <Heading fontSize='70px' color='darkblue' fontStyle='italic'>Profile</Heading>
                    <Box p="4" borderRadius='lg' width='lg'>
                        <FormControl mb='1rem'>
                            <FormLabel fontSize='20px'>Username</FormLabel>
@@ -43,7 +43,7 @@ const Profile = () => {
                                    </FormControl>
 
                                    <FormControl mb='1rem'>
-                                       <FormLabel fontSize='20px'>I currently a team member</FormLabel>
+                                       <FormLabel fontSize='20px'>Are you a team manager/coach?</FormLabel>
                                        <Select value={currentUser.role}>
                                            <option>Yes</option>
                                            <option>No</option>
@@ -120,7 +120,6 @@ const Profile = () => {
                        </table>
                    </div>
                </VStack>
-
            </div>
 
 

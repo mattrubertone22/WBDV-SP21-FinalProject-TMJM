@@ -8,6 +8,7 @@ import {
     InputRightElement,
     Button,
     FormControl,
+    Heading,
     FormLabel,
     Box,
     Stack,
@@ -27,20 +28,28 @@ export default function SignIn() {
     const login = () => {
         userService.login(credentials)
             .then((user) => {
+                console.log(user)
                 if(user === 0) {
-                    alert("login failed, try again")
-                } else {
+                    toast({
+                        title: "Login failed",
+                        description: "Username or password incorrect",
+                        status: "error",
+                        duration: 3000,
+                        isClosable: true
+                    });
+                }
+                else {
                     history.push("/profile")
                 }
+
             })
-        history.push("/profile")
+
     }
 
     return (
         <>
-            <NavBar/>
             <VStack>
-                <Text fontSize='80px' color='darkblue' as='em'>Login</Text>
+                <Heading fontSize='70px' color='darkblue' fontStyle='italic'>Login</Heading>
                 <Box p="4" borderRadius='lg' width='lg'>
                     <FormControl mb='4rem'>
                         <FormLabel fontSize='30px'>Username</FormLabel>

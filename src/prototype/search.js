@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react'
-
+import NavBar from "./NavBar";
 import teamService from '../services/team-service';
 import {Link, useParams, useHistory} from "react-router-dom";
-
+import {
+    Heading,VStack
+} from "@chakra-ui/react"
 
 const SearchTeam = () => {
     const {title} = useParams()
@@ -20,7 +22,9 @@ const SearchTeam = () => {
     }, [title])
         return(
             <div>
-                <h1>Search</h1>
+              <VStack>
+            <Heading fontSize='70px' color='darkblue' fontStyle='italic'>Search</Heading>
+
 
             <div className="row">
                 <div className="col-9">
@@ -43,8 +47,15 @@ const SearchTeam = () => {
               <Link to={`/details/${results.team_id}`}>
               <p> Team Name: {results.name} </p>
               </Link>
+              <img src={results.logo_url} width="200" height="200"/>
+              <p> Team rating: {results.rating} </p>
+              <p> Team wins:{results.wins}</p>
+              <p>Team lost: {results.losses}</p>
+
+
 
             </div>
+            </VStack>
             </div>
         )
     }

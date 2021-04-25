@@ -7,7 +7,47 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@font-face {
+  font-family: 'Antonio';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./font/static/Antonio-Regular.ttf') format("truetype");
+}
+.wbdv-widget-container {
+  position:absolute;
+  width: 200px;
+  height: 100px;
+  margin: 32px 12px;
+
+}
+.wbdv-page-content {
+  padding-top: 100px;
+  padding-left: 36px;
+  padding-right: 36px;
+}
+.wbdv-contrast-header {
+
+  width: 200px;
+  height: 100px;
+  background-color: white;
+  color: white;
+  padding: 10px;
+}
+.h3 {
+  color: white;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+.web-navigation-bar{
+      padding: 10px;
+      font-weight: bold;
+      font-size: larger;
+      position: fixed;
+      width: 100%;
+      z-index: 1;
+     background-color: #5c2328;
+      color: white;
+      font-family: "Antonio", sans-serif;
 }

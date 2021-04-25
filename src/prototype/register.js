@@ -20,22 +20,49 @@ const SignUp = () => {
 
     const [credentials, setCredentials] = useState({userName: '', password: '', role: ''})
     const history = useHistory()
+    const toast = useToast()
     const signup = () => {
-        userService.signup(credentials)
-            .then((user) => {
-                console.log(user)
-                if(user === 0) {
-                    alert("username already taken")
-                } else {
-                    history.push("/profile")
-                }
-            })
+        if (!(credentials.userName && credentials.password )) {
+            toast({
+                title: "Sign up failed",
+                description: "Please complete all required fields",
+                status: "error",
+                duration: 3000,
+                isClosable: true
+            });
+            return;
+        }
+
+            userService.signup(credentials)
+                .then((user) => {
+                    if (user !== 0) {
+                        toast({
+                            title: "Sign up successful",
+                            description: "try login",
+                            status: "success",
+                            duration: 3000,
+                            isClosable: true
+                        });
+                    }
+                    else {
+                        toast({
+                            title: "Sign up failed",
+                            description: "username already taken",
+                            status: "error",
+                            duration: 3000,
+                            isClosable: true
+                        });
+                    }
+                })
+
+
+
     }
 
 
     return (
         <>
-            <NavBar/>
+
             <VStack>
                 <Heading fontSize='70px' color='darkblue' fontStyle='italic'>Register</Heading>
                 <Box p="4" borderRadius='lg' width='lg'>
@@ -53,7 +80,7 @@ const SignUp = () => {
                     </FormControl> */}
                     <FormControl mb='1rem'>
                         <FormLabel fontSize='20px'>Roles</FormLabel>
-                        <Select placeholder="Are you a team member" value={credentials.role} onChange={(e) => {setCredentials({...credentials, role: e.target.value})}}>
+                        <Select placeholder="Are you a team manager or coach?" value={credentials.role} onChange={(e) => {setCredentials({...credentials, role: e.target.value})}}>
                             <option>Yes</option>
                             <option>No</option>
                         </Select>

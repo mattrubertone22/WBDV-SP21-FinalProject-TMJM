@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import {useHistory, useParams} from 'react-router-dom'
 import teamService from '../services/team-service'
-
-const DetailsScreen = () => {
+import ReactDOM from "react-dom";
+import {
+    Heading,VStack
+} from "@chakra-ui/react"
+const Details = () => {
     const {teamId} = useParams()
     const history = useHistory()
     const [team, setTeam] = useState({})
@@ -12,7 +15,10 @@ const DetailsScreen = () => {
     },[teamId])
     return(
         <div>
-            <button onClick={()=>{history.goBack()}}>Back</button>
+        <VStack>
+        <button onClick={()=>{history.goBack()}}>Back</button>
+        <Heading fontSize='70px' color='darkblue' fontStyle='italic'>Team recent matches</Heading>
+
             <h2>{team.name}</h2>
             <img src={team.logo_url} width="200" height="200"/>
             <table id="team_data_table">
@@ -29,8 +35,10 @@ const DetailsScreen = () => {
                        <td>{team.losses}</td>
                                     </tr>
                                                         </table>
+
+                                                        </VStack>
         </div>
     )
 }
 
-export default DetailsScreen
+export default Details

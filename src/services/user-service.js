@@ -26,6 +26,18 @@ const logout = () => {
         credentials: "include"
     }).then(response => response.json())
 }
+const getCurrentUser = () => {
+    return fetch(`${USER_API}/users/profile`,
+          {
+              method: "POST",
+              credentials: "include",
+              headers: {
+                  'content-type': 'application/json'
+              }
+          })
+        .then(response => response.text())
+        .then(responseText => responseText ? JSON.parse(responseText) : null)
+        }
 
 const signup = (credentials) => {
     return fetch(`${USER_API}/signup`, {
@@ -40,6 +52,26 @@ const signup = (credentials) => {
 }
 
 
+const otherProfile = (userName) => {
+    console.log('userName inside the service:', userName)
+    return fetch(`${USER_API}/profile/${userName}`, {
+        method: "GET"
+    }).then(response => response.json())
+}
+
+
+
+const updateProfile = (currentUser)=>{
+    return fetch(`${USER_API}/profile`, {
+        method: "PUT",
+        body: JSON.stringify(currentUser),
+        credentials: "include",
+        headers: {
+            'content-type': 'application/json'
+        }
+    }).then(response => response.json())
+}
+
 export default {
-    signup, login, logout, profile
+    signup, login, logout, profile,updateProfile, otherProfile,getCurrentUser
 }
