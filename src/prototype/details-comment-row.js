@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 
-class CommentRowDetail extends Component {
+class CommentRow extends Component {
     render() {
         return (
            <tr>
@@ -20,4 +20,4 @@ class CommentRowDetail extends Component {
         );
     }
 }
-export default CommentRowDetail;
+export default CommentRow;
