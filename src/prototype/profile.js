@@ -192,7 +192,7 @@ const Profile = () => {
                     <table className="table text-nowrap">
                         <thead>
                         <tr>
-                            <th>Dog Id</th>
+                            <th>TeamId</th>
                             <th>Comments</th>
                         </tr>
                         </thead>
