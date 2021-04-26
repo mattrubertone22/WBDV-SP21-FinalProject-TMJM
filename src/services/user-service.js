@@ -53,7 +53,7 @@ const signup = (credentials) => {
 
 
 const otherProfile = (userName) => {
-    console.log('userName inside the service:', userName)
+
     return fetch(`${USER_API}/profile/${userName}`, {
         method: "GET"
     }).then(response => response.json())

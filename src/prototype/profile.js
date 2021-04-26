@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import NavBar from "./NavBar";
+import CommentProfile from "./profile-comment-row"
 import {
     Box,
     FormControl,
@@ -9,9 +9,11 @@ import {
     Stack,
     Text,
     Heading,
-    VStack, Select
+    VStack, Select,useToast
 } from "@chakra-ui/react";
 import userService from "../services/user-service";
+import commentService from "../services/comment-service";
+import {useParams} from "react-router-dom";
 
 const Profile = () => {
     const [password, setPassword] = useState('');
@@ -19,109 +21,200 @@ const Profile = () => {
     const [editing, setEditing] = useState(false)
     const [currentUser, setCurrentUser] = useState({})
     const [statusCode, setStatusCode] = useState('')
+    const [comments, setComments] = useState([]);
+    const {userName} = useParams()
+    const [otherUser, setOtherUser] = useState({});
+    const toast = useToast()
     useEffect(() => {
-        userService.profile()
-            .then((currentUser) => {
-                setCurrentUser(currentUser)
-            })
+        if(userName){
+            userService.otherProfile(userName)
+                .then((otherUser) => {
+                    console.log("otheruser is:", otherUser)
+                    setOtherUser(otherUser)
+                    commentService.findCommentsByUserName(otherUser.userName)
+                        .then(comments => {
+                                console.log(comments)
+                                setComments(comments)
+                            }
+                        )
+                })
+        } else{
+            userService.profile()
+                .then((current) => {
+                    setCurrentUser(current);
+                    console.log('curent innnnnnnnnnn',current);
+                    commentService.findCommentsByUserName(current.userName)
+                        .then(comments => {
+                                setComments(comments)
+                            }
+                        )
+                })
+        }
+
     }, [statusCode])
+     const updateprofile =(currentUser)=>{
+            if (!(currentUser.userName && currentUser.password )) {
+                toast({
+                    title: "Update profile failed",
+                    description: "All fields are required",
+                    status: "error",
+                    duration: 3000,
+                    isClosable: true
+                });
+                return;
+            }
+            if (currentUser.password.length < 3) {
+                toast({
+                    title: "Sign up failed",
+                    description: "Password at least 3 digits",
+                    status: "error",
+                    duration: 3000,
+                    isClosable: true
+                });
+                return;
+            }
+
+            console.log('currentuser inside of updateprofile:', currentUser)
+            userService.updateProfile(currentUser)
+
+                .then((currentUser) => {
+                    setCurrentUser(currentUser)
+
+                })
+        }
        return(
            <div>
                <VStack>
                    <Heading fontSize='70px' color='darkblue' fontStyle='italic'>Profile</Heading>
-                   <Box p="4" borderRadius='lg' width='lg'>
-                       <FormControl mb='1rem'>
-                           <FormLabel fontSize='20px'>Username</FormLabel>
-                           <Input type="text" value={currentUser.userName}/>
-                       </FormControl>
-                       {
-                           !editing &&
-                               <>
-                                   <FormControl mb='1rem'>
-                                       <FormLabel fontSize='20px'>Password</FormLabel>
-                                       <Input type="password" value={currentUser.password}/>
-                                   </FormControl>
+                <Box p="4" borderRadius='lg' width='lg'>
 
-                                   <FormControl mb='1rem'>
-                                       <FormLabel fontSize='20px'>Are you a team manager/coach?</FormLabel>
-                                       <Select value={currentUser.role}>
-                                           <option>Yes</option>
-                                           <option>No</option>
-                                       </Select>
-                                   </FormControl>
-                               </>
+
+                    {
+                        userName &&
+                        <>
+                            <FormControl mb='1rem'>
+                                <FormLabel fontSize='20px'>Username</FormLabel>
+                                <Input type="text" value={otherUser.userName}/>
+                            </FormControl>
+
+                            <FormControl mb='1rem'>
+                                <FormLabel fontSize='20px'>I am a team manager/coach</FormLabel>
+                                <Select value={otherUser.role}>
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                </Select>
+                            </FormControl>
+
+                        </>
+
+                    }
+
+                       {
+                           !editing && !userName &&
+                            <>
+                                <FormControl mb='1rem'>
+                                    <FormLabel fontSize='20px'>Username</FormLabel>
+                                    <Input type="text" value={currentUser.userName}/>
+                                </FormControl>
+
+                                <FormControl mb='1rem'>
+                                    <FormLabel fontSize='20px'>Password</FormLabel>
+                                    <Input type="password" value={currentUser.password}/>
+                                </FormControl>
+
+                                <FormControl mb='1rem'>
+                                    <FormLabel fontSize='20px'>I am a team manager/coach</FormLabel>
+                                    <Select value={currentUser.role}>
+                                        <option>Yes</option>
+                                        <option>No</option>
+                                    </Select>
+                                </FormControl>
+
+                                <Stack direction="column" spacing={7} align='center' pt='2rem'>
+                                    <Button onClick={() => {
+
+                                        setEditing(true)
+                                        console.log('editing in edit profile', editing)
+                                    }} colorScheme='purple' size='lg' width='xs'>Edit Profile</Button>
+                                </Stack>
+
+
+                            </>
 
                        }
 
-                       {
-                           editing &&
-                           <>
-                               <FormControl mb='1rem'>
-                                   <FormLabel fontSize='20px'>Password</FormLabel>
-                                   <Input type="password" onChange={(e) => setCurrentUser({...currentUser, password: e.target.value})}
-                                          value={currentUser.password}/>
-                               </FormControl>
 
-                               <FormControl mb='1rem'>
-                                   <FormLabel fontSize='20px'>I am currently a team member</FormLabel>
-                                   <Select
-                                       onChange={(e) => {
-                                       setCurrentUser( currentUser=>  ({...currentUser, role: e.target.options[e.target.selectedIndex].value}))
-                                       console.log(e.target.options[e.target.selectedIndex].value)
+                    {
+                        editing && !userName &&
+                        <>
+                            <FormControl mb='1rem'>
+                                <FormLabel fontSize='20px'>Username</FormLabel>
+                                <Input type="text" value={currentUser.userName}/>
+                            </FormControl>
 
-                                   }}
-                                       value={currentUser.role}>
-                                       <option value={'Yes'}>Yes</option>
-                                       <option value={'No'}>No</option>
-                                   </Select>
-                               </FormControl>
-                           </>
+                            <FormControl mb='1rem'>
+                                <FormLabel fontSize='20px'>Password</FormLabel>
+                                <Input type="password" onChange={(e) => setCurrentUser({...currentUser, password: e.target.value})}
+                                       value={currentUser.password}/>
+                            </FormControl>
 
-                       }
+                            <FormControl mb='1rem'>
+                                <FormLabel fontSize='20px'>I am a team manager/coach</FormLabel>
+                                <Select
+                                    onChange={(e) => {
+                                        setCurrentUser( currentUser=>  ({...currentUser, role: e.target.options[e.target.selectedIndex].value}))
+                                        console.log(e.target.options[e.target.selectedIndex].value)
+
+                                    }}
+                                    value={currentUser.role}>
+                                    <option value={'Yes'}>Yes</option>
+                                    <option value={'No'}>No</option>
+                                </Select>
+                            </FormControl>
+                            <Stack direction="column" spacing={7} align='center' pt='2rem'>
+                                <Button onClick={() => {
+                                    updateprofile(currentUser)
+                                    setEditing(false)
+                                    console.log('editing in update profile', editing)
+                                }} colorScheme='purple' size='lg' width='xs'>Update Profile</Button>
+                            </Stack>
 
 
+                        </>
 
-
-                       <Stack direction="column" spacing={7} align='center' pt='2rem'>
-                           <Button onClick={() => {setEditing(true)}} colorScheme='purple' size='lg' width='xs'>Edit Profile</Button>
-                       </Stack>
-
-                       <Stack direction="column" spacing={7} align='center' pt='2rem'>
-                           <Button colorScheme='purple' size='lg' width='xs'>Update Profile</Button>
-                       </Stack>
+                    }
 
                    </Box>
 
-                   <div className="table-responsive">
-                       <table className="table text-nowrap">
-                           <thead>
-                           <tr>
-                               <th>MatchId</th>
-                               <th>Comments</th>
-                           </tr>
-                           </thead>
-                           <tbody>
-                           <tr>
-                               <td>5951040787</td>
-                               <td><textarea>Nigma vs Secret</textarea></td>
-                               <i onClick={() => {
-                                   // setEditing(true)
-                               }} className="fas fa-cog"></i>
-                           </tr>
-                           <tr>
-                               <td>5950735072</td>
-                               <td><textarea>Brame vs Thurda</textarea></td>
-                               <i onClick={() => {
-                                   // setEditing(true)
-                               }} className="fas fa-cog"></i>
-                           </tr>
 
-                           </tbody>
-                       </table>
-                   </div>
-               </VStack>
-           </div>
 
+                <div className="table-responsive">
+                    <table className="table text-nowrap">
+                        <thead>
+                        <tr>
+                            <th>Dog Id</th>
+                            <th>Comments</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                comments.map((comment)=>
+
+                                    <CommentProfile
+                                        // editing={editingWidget.id === widget.id}
+                                        comment={comment}
+                                        userName = {userName}
+                                    />
+                                )
+
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </VStack>
+
+        </div>
 
 
 

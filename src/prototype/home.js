@@ -16,6 +16,7 @@ const Home = () => {
         userService.getCurrentUser()
             .then((user) => {
                 if (user !== null) {
+                console.log(user)
                     setCurrentUser(user)
                 }
             })
