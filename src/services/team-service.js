@@ -11,9 +11,11 @@ const getTeamById = (teamId) => {
     }
 const getMatchByTeam = (teamId) => {
 
-      return fetch(`https://api.opendota.com/api/teams/${teamId}/matches?api_key=63643084-c099-4b19-a918-a260b161f191`)
+      return fetch(`https://api.opendota.com/api/teams/${teamId}/players?api_key=63643084-c099-4b19-a918-a260b161f191`)
             .then(response => response.json())
     }
+
+
 
 const renderTeams = (teams) => {
         console.log(teams)

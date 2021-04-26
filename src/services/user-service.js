@@ -1,4 +1,4 @@
-const USER_API = "http://localhost:4001/api/users";
+const USER_API = "http://localhost:8080/api/users";
 
 const profile = () => {
     return fetch(`${USER_API}/profile`, {

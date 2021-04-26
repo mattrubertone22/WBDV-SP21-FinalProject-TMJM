@@ -1,23 +1,49 @@
 import React, {useState, useEffect} from 'react'
 import {useHistory, useParams} from 'react-router-dom'
 import teamService from '../services/team-service'
+import commentService from '../services/comment-service';
+
 import ReactDOM from "react-dom";
+import userService from "../services/user-service";
 import {
-    Heading,VStack
+    Heading,VStack,Input
 } from "@chakra-ui/react"
+import Commentdetail from "./details-comment-row"
+
 const Details = () => {
     const {teamId} = useParams()
     const history = useHistory()
     const [team, setTeam] = useState({})
+    const [newComment, setNewComment] = useState({"teamId": teamId})
+    const [comments, setComments] = useState([]);
+   const [currentUser, setCurrentUser] = useState({});
     useEffect(() => {
         teamService.getTeamById(teamId)
             .then(team => setTeam(team))
+        commentService.findCommentsByTeamId(teamId)
+            .then(comments =>
+          setComments(comments))
+    userService.profile()
+         .then((currentUser) => {
+           setCurrentUser(currentUser)
+           console.log('inside function', currentUser)
+           setNewComment({...newComment, userName: currentUser.userName})
+                })
     },[teamId])
+
+    const createNewComment =()=>{
+
+        commentService.createComment(teamId, newComment)
+            .then(newComment => {
+                setNewComment(newComment)
+            })
+    }
+
     return(
         <div>
         <VStack>
         <button onClick={()=>{history.goBack()}}>Back</button>
-        <Heading fontSize='70px' color='darkblue' fontStyle='italic'>Team recent matches</Heading>
+        <Heading fontSize='70px' color='darkblue' fontStyle='italic'>Team Details</Heading>
 
             <h2>{team.name}</h2>
             <img src={team.logo_url} width="200" height="200"/>
@@ -32,10 +58,46 @@ const Details = () => {
                    </tr>
                    <tr>
                            <td>lost</td>
-                       <td>{team.losses}</td>
+                       <td>{team.lost}</td>
                                     </tr>
                                                         </table>
+            <div className="table-responsive">
+                <table className="table text-nowrap">
+                    <thead>
+                    <tr>
+                        <th>UserName</th>
+                        <th>Comments</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {
+                        comments.map((comment)=>
 
+                            <Commentdetail
+                                {...comment}
+                            />
+                        )
+
+                    }
+
+                    </tbody>
+                </table>
+            </div>
+
+            <form>
+                <div className="form-group">
+                    <label htmlFor="comment">Experience against this team</label>
+                    <input type="text" className="form-control" id = "comment" placeholder="Comment"
+                           onChange={(e) => {setNewComment({...newComment, comment: e.target.value})
+                               console.log('newcooment', newComment)
+                           }}
+                           value={newComment.comment}/>
+                    <br/>
+
+                    <button onClick={() => createNewComment(teamId, newComment)}
+                        type="submit" className="btn btn-primary">submit</button>
+                </div>
+            </form>
                                                         </VStack>
         </div>
     )

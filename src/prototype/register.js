@@ -22,6 +22,7 @@ const SignUp = () => {
     const history = useHistory()
     const toast = useToast()
     const signup = () => {
+    console.log(credentials)
         if (!(credentials.userName && credentials.password )) {
             toast({
                 title: "Sign up failed",

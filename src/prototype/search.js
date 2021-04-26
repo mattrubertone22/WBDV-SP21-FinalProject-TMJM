@@ -48,9 +48,7 @@ const SearchTeam = () => {
               <p> Team Name: {results.name} </p>
               </Link>
               <img src={results.logo_url} width="200" height="200"/>
-              <p> Team rating: {results.rating} </p>
-              <p> Team wins:{results.wins}</p>
-              <p>Team lost: {results.losses}</p>
+
 
 
 
