@@ -43,11 +43,9 @@ const Profile = () => {
       userService.profile().then((current) => {
         setCurrentUser(current);
         console.log("curent innnnnnnnnnn", current);
-        commentService
-          .findCommentsByUserName(current.userName)
-          .then((comments) => {
-            setComments(comments);
-          });
+        commentService.findCommentsByUserId(current.id).then((comments) => {
+          setComments(comments);
+        });
       });
     }
   }, [statusCode]);

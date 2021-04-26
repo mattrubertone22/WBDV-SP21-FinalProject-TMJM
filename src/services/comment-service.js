@@ -22,8 +22,8 @@ export const updateComment = (commentId, comment) =>
     },
   }).then((response) => response.json());
 
-export const findCommentsByUserName = (userName) =>
-  fetch(`${COMMENTS_URL}/users/${userName}/comments`).then((response) =>
+export const findCommentsByUserId = (uid) =>
+  fetch(`${COMMENTS_URL}/users/${uid}/comments`).then((response) =>
     response.json()
   );
 
@@ -41,7 +41,7 @@ export default {
   createComment,
   deleteComment,
   updateComment,
-  findCommentsByUserName,
+  findCommentsByUserId,
   findCommentsByTeamId,
   findCommentsById,
 };
