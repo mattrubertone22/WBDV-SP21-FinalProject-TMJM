@@ -16,8 +16,8 @@ const NavBar = () => {
   const logout = () => {
     if (currentUser) {
       userService.logout().then(() => {
-        setCurrentUser(null);
         history.push("/login");
+        setCurrentUser(null);
       });
     }
   };

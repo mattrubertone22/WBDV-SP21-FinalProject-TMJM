@@ -55,10 +55,10 @@ const otherProfile = (userName) => {
   }).then((response) => response.json());
 };
 
-const updateProfile = (currentUser) => {
-  return fetch(`${USER_API}/profile`, {
+const updateProfile = (existingUser) => {
+  return fetch(`${USER_API}/profile/${existingUser.id}`, {
     method: "PUT",
-    body: JSON.stringify(currentUser),
+    body: JSON.stringify(existingUser),
     credentials: "include",
     headers: {
       "content-type": "application/json",
