@@ -25,17 +25,6 @@ const Home = () => {
 
         <div >
             <div className="row">
-            <div className="col-12 col-md-4">
-                {
-                    currentUser !== undefined &&
-                    <FavoritesWidget user={currentUser}/>
-                }
-                {
-                    currentUser === undefined &&
-                    <SignUpWidget title={"Not signed in?"}
-                                  page={"home"}/>
-                }
-            </div>
 
              <div className="col-12 col-md-8">
                       <FeaturedTeamsCard/>

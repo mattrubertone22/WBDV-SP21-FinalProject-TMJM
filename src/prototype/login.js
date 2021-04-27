@@ -49,7 +49,7 @@ export default function SignIn() {
         <>
             <VStack>
                 <Heading fontSize='70px' color='darkblue' fontStyle='italic'>Login</Heading>
-                <Box p="4" borderRadius='lg' width='lg'>
+                <Box p="4" borderRadius='sm' width='lg'>
                     <FormControl mb='4rem'>
                         <FormLabel fontSize='30px'>Username</FormLabel>
                         <Input placeholder="Enter Username" variant="flushed" value={credentials.userName} onChange={(e) => {setCredentials({...credentials, userName: e.target.value})}}/>
