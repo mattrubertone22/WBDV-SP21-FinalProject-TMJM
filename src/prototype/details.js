@@ -26,10 +26,8 @@ const Details = () => {
       .then((comments) => setComments(comments));
     userService.profile().then((currentUser) => {
       setCurrentUser(currentUser);
-<<<<<<< HEAD
       setNewComment({ ...newComment, uid: currentUser.id });
     });
-
   }, [teamId]);
 
   const createNewComment = () => {
@@ -53,36 +51,6 @@ const Details = () => {
           Team Details
         </Heading>
 
-=======
-      console.log("inside function", currentUser);
-      setNewComment({ ...newComment, uid: currentUser.id });
-    });
-    console.log(newComment);
-  }, [teamId]);
-
-  const createNewComment = () => {
-    console.log("Printing Comment", newComment);
-    commentService.createComment(newComment).then((newComment) => {
-      setNewComment(newComment);
-      setComments(newComment);
-    });
-  };
-
-  return (
-    <div>
-      <VStack>
-        <button
-          onClick={() => {
-            history.goBack();
-          }}
-        >
-          Back
-        </button>
-        <Heading fontSize="70px" color="darkblue" fontStyle="italic">
-          Team Details
-        </Heading>
-
->>>>>>> adf98bb2e0c0cae8f251b0e2591dd228d69b378b
         <h2>{team.name}</h2>
         <img src={team.logo_url} width="200" height="200" />
         <table id="team_data_table">
@@ -143,8 +111,4 @@ const Details = () => {
   );
 };
 
-<<<<<<< HEAD
 export default Details;
-=======
-export default Details;
->>>>>>> adf98bb2e0c0cae8f251b0e2591dd228d69b378b
