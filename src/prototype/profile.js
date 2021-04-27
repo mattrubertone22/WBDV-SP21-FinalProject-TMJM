@@ -29,8 +29,13 @@ const Profile = () => {
   const toast = useToast();
   useEffect(() => {
     if (userName) {
+<<<<<<< HEAD
     console.log("111")
       userService.otherProfile(userName).then((otherUser) => {
+=======
+      userService.otherProfile(userName).then((otherUser) => {
+        console.log("otheruser is:", otherUser);
+>>>>>>> adf98bb2e0c0cae8f251b0e2591dd228d69b378b
         setOtherUser(otherUser);
         commentService.findCommentsByUserId(otherUser.id).then((comments) => {
           console.log(comments);
@@ -40,7 +45,11 @@ const Profile = () => {
     } else {
       userService.profile().then((current) => {
         setCurrentUser(current);
+<<<<<<< HEAD
 
+=======
+        console.log("curent innnnnnnnnnn", current);
+>>>>>>> adf98bb2e0c0cae8f251b0e2591dd228d69b378b
         commentService.findCommentsByUserId(current.id).then((comments) => {
           setComments(comments);
         });
@@ -206,4 +215,8 @@ const Profile = () => {
   );
 };
 
+<<<<<<< HEAD
 export default Profile;
+=======
+export default Profile;
+>>>>>>> adf98bb2e0c0cae8f251b0e2591dd228d69b378b

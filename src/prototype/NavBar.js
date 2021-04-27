@@ -16,8 +16,13 @@ const NavBar = () => {
   const logout = () => {
     if (currentUser) {
       userService.logout().then(() => {
+<<<<<<< HEAD
         setCurrentUser(null);
         history.push("/login");
+=======
+        history.push("/login");
+        setCurrentUser(null);
+>>>>>>> adf98bb2e0c0cae8f251b0e2591dd228d69b378b
       });
     }
   };
@@ -41,4 +46,8 @@ const NavBar = () => {
   );
 };
 
+<<<<<<< HEAD
 export default NavBar;
+=======
+export default NavBar;
+>>>>>>> adf98bb2e0c0cae8f251b0e2591dd228d69b378b

@@ -1,6 +1,16 @@
 import { Link } from "react-router-dom";
 
 const SignUpWidget = ({ title, page }) => {
+<<<<<<< HEAD
+=======
+  let backgroundClassName = "";
+  if (page === "home") {
+    backgroundClassName = "wbdv-widget-container";
+  }
+  if (page === "detail") {
+    backgroundClassName = "wbdv-widget-container-light";
+  }
+>>>>>>> adf98bb2e0c0cae8f251b0e2591dd228d69b378b
   return (
     <div className="row justify-content-right">
       <div className="wbdv-widget-container">
@@ -28,4 +38,8 @@ const SignUpWidget = ({ title, page }) => {
   );
 };
 
+<<<<<<< HEAD
 export default SignUpWidget;
+=======
+export default SignUpWidget;
+>>>>>>> adf98bb2e0c0cae8f251b0e2591dd228d69b378b
