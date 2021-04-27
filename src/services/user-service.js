@@ -24,6 +24,7 @@ const logout = () => {
     credentials: "include",
   }).then((response) => response.json());
 };
+
 const getCurrentUser = () => {
   return fetch(`${USER_API}/profile/{uid}`, {
     method: "GET",
@@ -55,7 +56,7 @@ const otherProfile = (userName) => {
 };
 
 const updateProfile = (currentUser) => {
-  return fetch(`${USER_API}/profile`, {
+  return fetch(`${USER_API}/profile/${currentUser.id}`, {
     method: "PUT",
     body: JSON.stringify(currentUser),
     credentials: "include",

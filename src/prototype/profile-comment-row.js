@@ -8,7 +8,7 @@ const CommentRowProfile = ({ comment, userId }) => {
   return (
     display && (
       <tr>
-        <td>{comment.dogId}</td>
+        <td>{comment.teamId}</td>
         <td>
           <textarea
             onChange={(e) =>

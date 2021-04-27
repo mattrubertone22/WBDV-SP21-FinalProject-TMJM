@@ -77,16 +77,23 @@ const Profile = () => {
 
       .then((currentUser) => {
         setCurrentUser(currentUser);
+        toast({
+          title: "Updated profile",
+          description: "Profile successfully updated!",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
       });
   };
   return (
     <div>
       <VStack>
         <Heading fontSize="70px" color="darkblue" fontStyle="italic">
-          Profile
+          {currentUser.userName} Profile
         </Heading>
         <Box p="4" borderRadius="lg" width="lg">
-          {userName && (
+          {/* {userName && (
             <>
               <FormControl mb="1rem">
                 <FormLabel fontSize="20px">Username</FormLabel>
@@ -101,49 +108,35 @@ const Profile = () => {
                 </Select>
               </FormControl>
             </>
-          )}
+          )} */}
 
-          {!editing && !userName && (
-            <>
-              <FormControl mb="1rem">
-                <FormLabel fontSize="20px">Username</FormLabel>
-                <Input type="text" value={currentUser.userName} />
-              </FormControl>
-
-              <FormControl mb="1rem">
-                <FormLabel fontSize="20px">Password</FormLabel>
-                <Input type="password" value={currentUser.password} />
-              </FormControl>
-
-              <FormControl mb="1rem">
-                <FormLabel fontSize="20px">I am a team manager/coach</FormLabel>
-                <Select value={currentUser.role}>
-                  <option>Yes</option>
-                  <option>No</option>
-                </Select>
-              </FormControl>
-
-              <Stack direction="column" spacing={7} align="center" pt="2rem">
-                <Button
-                  onClick={() => {
-                    setEditing(true);
-                    console.log("editing in edit profile", editing);
-                  }}
-                  colorScheme="purple"
-                  size="lg"
-                  width="xs"
-                >
-                  Edit Profile
-                </Button>
-              </Stack>
-            </>
+          {!editing && currentUser.userName && (
+            <Stack direction="column" spacing={7} align="center" pt="2rem">
+              <Button
+                onClick={() => {
+                  setEditing(true);
+                  console.log("editing in edit profile", editing);
+                }}
+                colorScheme="purple"
+                size="lg"
+                width="xs"
+              >
+                Edit Profile
+              </Button>
+            </Stack>
           )}
 
           {editing && !userName && (
             <>
               <FormControl mb="1rem">
                 <FormLabel fontSize="20px">Username</FormLabel>
-                <Input type="text" value={currentUser.userName} />
+                <Input
+                  type="text"
+                  value={currentUser.userName}
+                  onChange={(e) =>
+                    setCurrentUser({ ...currentUser, userName: e.target.value })
+                  }
+                />
               </FormControl>
 
               <FormControl mb="1rem">
@@ -204,7 +197,7 @@ const Profile = () => {
                 <CommentProfile
                   // editing={editingWidget.id === widget.id}
                   comment={comment}
-                  userName={userName}
+                  teamId={comment.teamId}
                 />
               ))}
             </tbody>
