@@ -20,10 +20,10 @@ const Details = () => {
   const [comments, setComments] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
   useEffect(() => {
-    // teamService.getTeamById(teamId).then((team) => setTeam(team));
-    // commentService
-    //   .findCommentsByTeamId(teamId)
-    //   .then((comments) => setComments(comments));
+    teamService.getTeamById(teamId).then((team) => setTeam(team));
+    commentService
+      .findCommentsByTeamId(teamId)
+      .then((comments) => setComments(comments));
     userService.profile().then((currentUser) => {
       setCurrentUser(currentUser);
       console.log("inside function", currentUser);
@@ -36,6 +36,7 @@ const Details = () => {
     console.log("Printing Comment", newComment);
     commentService.createComment(newComment).then((newComment) => {
       setNewComment(newComment);
+      setComments(newComment);
     });
   };
 
@@ -66,14 +67,13 @@ const Details = () => {
           </tr>
           <tr>
             <td>lost</td>
-            <td>{team.lost}</td>
+            <td>{team.losses}</td>
           </tr>
         </table>
         <div className="table-responsive">
           <table className="table text-nowrap">
             <thead>
               <tr>
-                <th>UserName</th>
                 <th>Comments</th>
               </tr>
             </thead>

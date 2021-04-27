@@ -32,12 +32,10 @@ const Profile = () => {
       userService.otherProfile(userName).then((otherUser) => {
         console.log("otheruser is:", otherUser);
         setOtherUser(otherUser);
-        commentService
-          .findCommentsByUserName(otherUser.userName)
-          .then((comments) => {
-            console.log(comments);
-            setComments(comments);
-          });
+        commentService.findCommentsByUserId(otherUser.id).then((comments) => {
+          console.log(comments);
+          setComments(comments);
+        });
       });
     } else {
       userService.profile().then((current) => {
@@ -93,7 +91,7 @@ const Profile = () => {
           {currentUser.userName} Profile
         </Heading>
         <Box p="4" borderRadius="lg" width="lg">
-          {/* {userName && (
+          {userName && (
             <>
               <FormControl mb="1rem">
                 <FormLabel fontSize="20px">Username</FormLabel>
@@ -108,7 +106,7 @@ const Profile = () => {
                 </Select>
               </FormControl>
             </>
-          )} */}
+          )}
 
           {!editing && currentUser.userName && (
             <Stack direction="column" spacing={7} align="center" pt="2rem">

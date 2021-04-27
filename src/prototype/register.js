@@ -26,7 +26,7 @@ const SignUp = () => {
   const toast = useToast();
   const signup = () => {
     console.log(credentials);
-    if (!(credentials.userName && credentials.password)) {
+    if (!(credentials.userName && credentials.password && credentials.role)) {
       toast({
         title: "Sign up failed",
         description: "Please complete all required fields",
@@ -91,10 +91,8 @@ const SignUp = () => {
                     </FormControl> */}
           <FormControl mb="1rem">
             <FormLabel fontSize="20px">Roles</FormLabel>
-            <FormLabel fontSize="14px">
-              Are you a team manager or coach?
-            </FormLabel>
             <Select
+              placeholder="Are you a team manager or coach?"
               value={credentials.role}
               onChange={(e) => {
                 setCredentials({ ...credentials, role: e.target.value });

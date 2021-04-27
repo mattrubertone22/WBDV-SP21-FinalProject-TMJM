@@ -20,7 +20,7 @@ const login = (credentials) => {
 
 const logout = () => {
   return fetch(`${USER_API}/logout`, {
-    method: "POST",
+    method: "GET",
     credentials: "include",
   }).then((response) => response.json());
 };
@@ -56,7 +56,7 @@ const otherProfile = (userName) => {
 };
 
 const updateProfile = (currentUser) => {
-  return fetch(`${USER_API}/profile/${currentUser.id}`, {
+  return fetch(`${USER_API}/profile`, {
     method: "PUT",
     body: JSON.stringify(currentUser),
     credentials: "include",
