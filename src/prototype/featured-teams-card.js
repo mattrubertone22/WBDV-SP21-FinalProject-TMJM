@@ -41,6 +41,7 @@ const FeaturedTeamsCard = () => {
       <td>3</td>
       <td >Team Secret</td>
       <td><img src={secret_logo} width="80" height="80"/></td>
+       <td>800</td>
        </tr>
          <tr>
            <td>4</td>

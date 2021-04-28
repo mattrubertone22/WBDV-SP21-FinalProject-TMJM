@@ -2,8 +2,11 @@ const USER_API = "http://localhost:8080/api/users";
 
 const profile = () => {
   return fetch(`${USER_API}/profile`, {
-    method: "GET",
+    method: "POST",
     credentials: "include",
+                  headers: {
+                      'content-type': 'application/json'
+                  }
   }).then((response) => response.json());
 };
 
@@ -26,7 +29,7 @@ const logout = () => {
 };
 
 const getCurrentUser = () => {
-  return fetch(`${USER_API}/profile/{uid}`, {
+  return fetch(`${USER_API}/profile`, {
     method: "GET",
     credentials: "include",
     headers: {
@@ -48,9 +51,9 @@ const signup = (credentials) => {
   }).then((response) => response.json());
 };
 
-const otherProfile = (userName) => {
-  console.log("userName inside the service:", userName);
-  return fetch(`${USER_API}/profile/${userName}`, {
+const otherProfile = (userId) => {
+  console.log("userName inside the service:", userId);
+  return fetch(`${USER_API}/profile/${userId}`, {
     method: "GET",
   }).then((response) => response.json());
 };

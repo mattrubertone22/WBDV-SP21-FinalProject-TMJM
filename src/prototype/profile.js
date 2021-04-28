@@ -18,11 +18,12 @@ import {
 import userService from "../services/user-service";
 import commentService from "../services/comment-service";
 import { useParams } from "react-router-dom";
-
+import { Link, useHistory } from "react-router-dom";
 
 const Profile = () => {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
+    const history = useHistory();
   const [editing, setEditing] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [statusCode, setStatusCode] = useState("");
@@ -33,12 +34,13 @@ const Profile = () => {
     note: "",
     uid:currentUser.id,
   });
-  const { userName } = useParams();
+  const { userId } = useParams();
   const [otherUser, setOtherUser] = useState({});
   const toast = useToast();
   useEffect(() => {
-    if (userName) {
-      userService.otherProfile(userName).then((otherUser) => {
+    console.log(userId)
+    if (userId) {
+      userService.otherProfile(userId).then((otherUser) => {
         console.log("otheruser is:", otherUser);
         setOtherUser(otherUser);
         commentService.findCommentsByUserId(otherUser.id).then((comments) => {
@@ -48,8 +50,9 @@ const Profile = () => {
       });
     } else {
       userService.profile().then((current) => {
-        setCurrentUser(current);
         console.log("user is:", current);
+        setCurrentUser(current);
+
         setMatch({...match, uid:current.id});
         commentService.findCommentsByUserId(current.id).then((comments) => {
           setComments(comments);
@@ -61,7 +64,7 @@ const Profile = () => {
 
 
   const updateprofile = (currentUser) => {
-    if (!(currentUser.userName && currentUser.password)) {
+    if (!(currentUser.userId && currentUser.password)) {
       toast({
         title: "Update profile failed",
         description: "All fields are required",
@@ -73,7 +76,7 @@ const Profile = () => {
     }
     if (currentUser.password.length < 3) {
       toast({
-        title: "Sign up failed",
+        title: "Update failed",
         description: "Password at least 3 digits",
         status: "error",
         duration: 3000,
@@ -94,6 +97,7 @@ const Profile = () => {
           isClosable: true,
         });
       });
+      history.push("/login");
   };
 
   const savematch = () => {
@@ -106,15 +110,15 @@ const Profile = () => {
   return (
     <div>
       <VStack>
-        <Heading fontSize="70px" color="darkblue" fontStyle="italic">
-          {currentUser.userName} Profile
+        <Heading fontSize="70px" color="#25274D" fontStyle="italic">
+          {currentUser.userId} Profile
         </Heading>
         <Box p="4" borderRadius="lg" width="lg">
-          {userName && (
+          {userId && (
             <>
               <FormControl mb="1rem">
                 <FormLabel fontSize="20px">Username</FormLabel>
-                <Input type="text" value={otherUser.userName} />
+                <Input type="text" value={otherUser.userID} />
               </FormControl>
 
               <FormControl mb="1rem">
@@ -127,7 +131,7 @@ const Profile = () => {
             </>
           )}
 
-          {!editing && currentUser.userName && (
+          {!editing && currentUser.userID && (
             <Stack direction="column" spacing={7} align="center" pt="2rem">
               <Button
                 onClick={() => {
@@ -143,7 +147,7 @@ const Profile = () => {
             </Stack>
           )}
 
-          {editing && !userName && (
+          {editing && !userId && (
             <>
               <FormControl mb="1rem">
                 <FormLabel fontSize="20px">Username</FormLabel>
@@ -215,11 +219,15 @@ const Profile = () => {
                   // editing={editingWidget.id === widget.id}
                   comment={comment}
                   teamId={comment.teamId}
+                  userId = {comment.userId}
                 />
               ))}
             </tbody>
           </table>
         </div>
+
+            {currentUser.role == "Yes" && (
+                    <>
             <Box p="4" borderRadius="lg" width="lg">
           <FormControl mb="1rem">
             <FormLabel fontSize="20px">matchId</FormLabel>
@@ -246,6 +254,8 @@ const Profile = () => {
             </Button>
           </Stack>
         </Box>
+                    </>
+                  )}
       </VStack>
     </div>
   );

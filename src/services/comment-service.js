@@ -32,8 +32,9 @@ export const deleteComment = (commentId) =>
     method: "DELETE",
   }).then((response) => response.json());
 
+
 export const updateComment = (commentId, comment) =>
-  fetch(`${COMMENTS_URL}/comments/${commentId}`, {
+  fetch(`${COMMENTS_URL}/delete/${commentId}`, {
     method: "PUT",
     body: JSON.stringify(comment),
     headers: {
@@ -45,6 +46,11 @@ export const findCommentsByUserId = (uid) =>
   fetch(`${COMMENTS_URL}/users/${uid}/comments`).then((response) =>
     response.json()
   );
+
+export const findMatchByUser = (uid) =>
+    fetch(`${NOTE_URL}/users/${uid}/note`).then((response) =>
+      response.json()
+   );
 
 export const findCommentsByTeamId = (teamId) =>
   fetch(`${COMMENTS_URL}/teams/${teamId}/comments`).then((response) =>
@@ -64,4 +70,5 @@ export default {
   findCommentsByTeamId,
   findCommentsById,
   createNote,
+  findMatchByUser,
 };

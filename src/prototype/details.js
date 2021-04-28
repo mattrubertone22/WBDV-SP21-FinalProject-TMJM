@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import teamService from "../services/team-service";
 import commentService from "../services/comment-service";
 
@@ -10,7 +10,6 @@ import Commentdetail from "./details-comment-row";
 
 const Details = () => {
   const { teamId } = useParams();
-  const history = useHistory();
   const [team, setTeam] = useState({});
   const [newComment, setNewComment] = useState({
     teamId: teamId,
@@ -43,14 +42,7 @@ const Details = () => {
   return (
     <div>
       <VStack>
-        <button
-          onClick={() => {
-            history.goBack();
-          }}
-        >
-          Back
-        </button>
-        <Heading fontSize="70px" color="darkblue" fontStyle="italic">
+        <Heading fontSize="70px" color="#25274D" fontStyle="italic">
           Team Details
         </Heading>
 

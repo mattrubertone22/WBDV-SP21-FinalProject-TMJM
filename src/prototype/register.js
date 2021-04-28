@@ -62,7 +62,7 @@ const SignUp = () => {
   return (
     <>
       <VStack>
-        <Heading fontSize="70px" color="darkblue" fontStyle="italic">
+        <Heading fontSize="70px" color="#25274D" fontStyle="italic">
           Register
         </Heading>
         <Box p="4" borderRadius="lg" width="lg">

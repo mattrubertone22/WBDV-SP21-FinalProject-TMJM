@@ -1,24 +1,27 @@
 import React, {useEffect, useState} from 'react'
 import {Link} from "react-router-dom";
-import {PrototypeApi} from './prototype.api'
 import NavBar from "./NavBar";
 import FeaturedTeamsCard from "./featured-teams-card";
 import userService from "../services/user-service";
 import SignUpWidget from "./signup-widget";
-
+import commentService from "../services/comment-service"
 import FavoritesWidget from "./favorites-widget";
 
 
 const Home = () => {
-    const [currentUser, setCurrentUser] = useState(undefined)
+
+    const [currentUser, setCurrentUser] = useState(undefined);
+    const [statusCode,setStatusCode] = useState("");
+    const [match, setMatch] = useState([]);
 
     useEffect(() => {
-        userService.profile()
-            .then((current) => {
-                    setCurrentUser(current.uid)
-                    console.log(currentUser)
+        userService.profile().then((currentUser) => {
+         setCurrentUser(currentUser);
+      console.log("inside1234 function", currentUser);
+    });
 
-            })
+
+
     }, [])
     return(
 
@@ -44,4 +47,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default Home;

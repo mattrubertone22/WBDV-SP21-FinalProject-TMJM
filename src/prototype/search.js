@@ -23,7 +23,7 @@ const SearchTeam = () => {
         return(
             <div>
               <VStack>
-            <Heading fontSize='70px' color='darkblue' fontStyle='italic'>Search</Heading>
+            <Heading fontSize='70px' color='#25274D' fontStyle='italic'>Search</Heading>
 
 
             <div className="row">
@@ -36,9 +36,10 @@ const SearchTeam = () => {
                 </div>
                 <div className="col-3">
               <button
+
                   onClick={() => {history.push(`/search/${searchName}`)}}
-                  className="btn btn-primary btn-block">
-                  Search
+                  className="btn btn-primary wbdv-search-btn">
+                Search
               </button>
                 </div>
             </div>
@@ -48,9 +49,6 @@ const SearchTeam = () => {
               <p> Team Name: {results.name} </p>
               </Link>
               <img src={results.logo_url} width="200" height="200"/>
-
-
-
 
             </div>
             </VStack>

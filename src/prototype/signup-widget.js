@@ -15,11 +15,11 @@ const SignUpWidget = ({title, page}) => {
                     {title}
                 </h3>
             </div>
-            <div className="wbdv-widget-aaa">
+            <div className="wbdv-widget-interior">
                 <div className="row wbdv-center-in-div">
                     <Link to={"/login"}>
                         <button className="btn wbdv-affirmative-btn">
-                            SIGN IN
+                            Sign In
                         </button>
                     </Link>
                 </div>

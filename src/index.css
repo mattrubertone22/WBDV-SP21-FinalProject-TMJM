@@ -14,9 +14,7 @@ body {
   src: url('./font/static/Antonio-Regular.ttf') format("truetype");
 }
 .wbdv-widget-container {
-  position:absolute;
-  width: 200px;
-  height: 100px;
+
   margin: 32px 12px;
 
 }
@@ -26,12 +24,11 @@ body {
   padding-right: 36px;
 }
 .wbdv-contrast-header {
-
   width: 200px;
   height: 100px;
-  background-color: white;
-  color: white;
-  padding: 10px;
+  background-color: #993366;
+  color: BLACK;
+  padding: 20px;
 }
 .h3 {
   color: white;
@@ -40,14 +37,33 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.wbdv-search-btn{
+      width:200px;
+}
 .web-navigation-bar{
-      padding: 10px;
+      padding:0px;
       font-weight: bold;
       font-size: larger;
       position: fixed;
       width: 100%;
       z-index: 1;
-     background-color: #5c2328;
+     background-color: #25274D;
       color: white;
       font-family: "Antonio", sans-serif;
+}
+.container-fluid{
+  background-color:#EAE7DC
+}
+.wbdv-vertical-center {
+  margin: 0;
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.wbdv-widget-interior {
+  padding: 12px;
+  background-color:#17E9E0;
+  color:White;
 }

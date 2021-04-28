@@ -1,10 +1,14 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import commentService from "../services/comment-service";
 
-const CommentRowProfile = ({ comment, userId }) => {
+const CommentRowProfile = ({ comment, userId, teamId }) => {
   const [editingComment, setEditingComment] = useState({});
   const [content, setContent] = useState(comment);
   const [display, setDisplay] = useState(true);
+  useEffect(()=>{
+    console.log(content);
+    console.log(userId);
+  },[comment]);
   return (
     display && (
       <tr>
@@ -17,34 +21,34 @@ const CommentRowProfile = ({ comment, userId }) => {
             value={content.comment}
           ></textarea>
         </td>
-        {!userId && editingComment._id !== comment._id && (
+
           <i
             onClick={() => {
               setEditingComment(comment);
             }}
             className="fas fa-cog"
           ></i>
-        )}
-        {!userId && editingComment._id === comment._id && (
+
+
           <i
             onClick={() => {
-              commentService.updateComment(comment._id, content).then(() => {
+              commentService.updateComment(comment.matchId, content).then(() => {
                 setEditingComment({});
               });
             }}
             className="fas fa-check"
           ></i>
-        )}
-        {!userId && editingComment._id === comment._id && (
+
+
           <i
             onClick={() => {
               commentService
-                .deleteComment(comment._id)
+                .deleteComment(comment.matchId)
                 .then(() => setDisplay(false));
             }}
             className="fas fa-trash"
           ></i>
-        )}
+
       </tr>
     )
   );

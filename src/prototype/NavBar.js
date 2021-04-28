@@ -35,7 +35,6 @@ const NavBar = () => {
             <Nav.Link href="/register">Register&nbsp;</Nav.Link>
           </Nav>
         </h3>
-        <button onClick={logout}>Logout</button>
       </Navbar>
     </div>
   );
