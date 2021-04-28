@@ -14,11 +14,11 @@ const FeaturedTeamsCard = () => {
                 Featured Team
             </h1>
 
-<div>
-<Table striped bordered hover variant="dark">
-  <thead>
-    <tr>
-      <th>#</th>
+                  <div>
+            <Table striped bordered hover variant="dark">
+                    <thead>
+                    <tr>
+             <th>#</th>
       <th>Team Name</th>
       <th>Team Logo</th>
       <th>Dpc Points</th>

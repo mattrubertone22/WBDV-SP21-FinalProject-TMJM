@@ -13,12 +13,11 @@ const Home = () => {
     const [currentUser, setCurrentUser] = useState(undefined)
 
     useEffect(() => {
-        userService.getCurrentUser()
-            .then((user) => {
-                if (user !== null) {
-                console.log(user)
-                    setCurrentUser(user)
-                }
+        userService.profile()
+            .then((current) => {
+                    setCurrentUser(current.uid)
+                    console.log(currentUser)
+
             })
     }, [])
     return(
